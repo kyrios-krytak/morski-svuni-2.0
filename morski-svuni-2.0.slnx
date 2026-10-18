@@ -5,7 +5,6 @@ pygame.init()
 pygame.mixer.init()
 
 # Завантаження звукових файлів
-# Переконайтеся, що файли pig2.mp3 та pig.mp3 знаходяться у тій самій папці, що й скрипт
 try:
     hit_sound = pygame.mixer.Sound("pig2.mp3")
     destroy_sound = pygame.mixer.Sound("pig.mp3")
