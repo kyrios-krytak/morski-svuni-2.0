@@ -1,5 +1,49 @@
-<Solution>
-  <Project Path="morski-svuni-2.0.pyproj" Type="888888a0-9f3d-457c-b088-3a5042f75d52" Id="63c58b65-5c73-4469-b117-ceae8ad4f0db">
-    <Build Project="false" />
-  </Project>
-</Solution>
+import pygame
+
+# Ініціалізація Pygame та мікшера для роботи зі звуком
+pygame.init()
+pygame.mixer.init()
+
+# Завантаження звукових файлів
+# Переконайтеся, що файли pig2.mp3 та pig.mp3 знаходяться у тій самій папці, що й скрипт
+try:
+    hit_sound = pygame.mixer.Sound("pig2.mp3")
+    destroy_sound = pygame.mixer.Sound("pig.mp3")
+except pygame.error as e:
+    print(f"Помилка завантаження звуку: {e}")
+
+# Функція, яка викликається при влучанні в корабель
+def handle_ship_hit():
+    print("Корабель отримав пошкодження!")
+    hit_sound.play()
+
+# Функція, яка викликається при повному знищенні корабля
+def handle_ship_destroyed():
+    print("Корабель повністю знищено!")
+    destroy_sound.play()
+
+# --- Приклад ігрового циклу для демонстрації ---
+if __name__ == "__main__":
+    # Створюємо просте вікно (потрібно для роботи pygame)
+    screen = pygame.display.set_mode((400, 300))
+    pygame.display.set_caption("Тест звуків корабля")
+
+    running = True
+    print("\nКерування:")
+    print("Натисніть клавішу 'H' (Hit), щоб імітувати влучання.")
+    print("Натисніть клавішу 'D' (Destroy), щоб імітувати знищення.")
+    print("Закрийте вікно для виходу.\n")
+
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_h:
+                    handle_ship_hit()
+                elif event.key == pygame.K_d:
+                    handle_ship_destroyed()
+
+        pygame.time.delay(100)
+
+    pygame.quit()
